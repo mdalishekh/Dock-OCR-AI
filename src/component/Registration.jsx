@@ -1,12 +1,13 @@
-
 import React, { useState } from 'react';
 import image1 from '../image/register.png';
 import { IoCall } from "react-icons/io5";
-import { FiEye, FiEyeOff } from "react-icons/fi"; 
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
-    firstname: '', 
+    firstname: '',
     lastname: '',
     phone: '',
     email: '',
@@ -27,6 +28,13 @@ const SignupForm = () => {
     });
   };
 
+  const handlePhoneChange = (value) => {
+    setFormData({
+      ...formData,
+      phone: value,
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
@@ -42,16 +50,19 @@ const SignupForm = () => {
       email: formData.email,
       password: formData.password,
     };
-
     try {
-      const response = await fetch('https://go-cab-test.onrender.com/auth/signup', {
+      
+    console.log(process.env.REACT_APP_Java_Signup);
+
+      const response = await fetch(process.env.REACT_APP_Java_Signup, {
+        
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestData),
       });
-
+    
       const result = await response.json();
 
       if (response.ok) {
@@ -93,7 +104,7 @@ const SignupForm = () => {
         <h2 className="text-2xl font-bold mb-5">Sign up</h2>
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2">
-            <span role="img" aria-label="user icon" className="mr-2">👤</span>
+            <span className="mr-2">👤</span>
             <input
               type="text"
               name="firstname"
@@ -105,7 +116,7 @@ const SignupForm = () => {
             />
           </div>
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2">
-            <span role="img" aria-label="user icon" className="mr-2">👤</span>
+            <span className="mr-2">👤</span>
             <input
               type="text"
               name="lastname"
@@ -116,18 +127,16 @@ const SignupForm = () => {
             />
           </div>
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2">
-            <span role="img" aria-label="call icon" className="mr-2"><IoCall /></span>
-            <input
-              type="number"
-              name="phone"
-              placeholder="Phone Number"
+            <IoCall className="mr-2" />
+            <PhoneInput
+              country="in"
               value={formData.phone}
-              onChange={handleChange}
-              className="border-none outline-none flex-1 text-base px-2"
+              onChange={handlePhoneChange}
+              inputClass="border-none outline-none flex-1 text-base px-2"
             />
           </div>
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2">
-            <span role="img" aria-label="email icon" className="mr-2">✉️</span>
+            <span className="mr-2">✉️</span>
             <input
               type="email"
               name="email"
@@ -139,7 +148,7 @@ const SignupForm = () => {
             />
           </div>
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2 relative">
-            <span role="img" aria-label="lock icon" className="mr-2">🔒</span>
+            <span className="mr-2">🔒</span>
             <input
               type={showPassword ? 'text' : 'password'}
               name="password"
@@ -158,14 +167,14 @@ const SignupForm = () => {
             </button>
           </div>
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2 relative">
-            <span role="img" aria-label="lock icon" className="mr-2">🔒</span>
+            <span className="mr-2">🔒</span>
             <input
               type={showConfirmPassword ? 'text' : 'password'}
               name="confirmPassword"
               placeholder="Repeat your password"
               value={formData.confirmPassword}
-              onChange={handleChange}
               required
+              onChange={handleChange}
               className="border-none outline-none flex-1 text-base px-2"
             />
             <button
@@ -187,7 +196,9 @@ const SignupForm = () => {
             />
             <label>
               I agree to all statements in{' '}
-              <a href="#" className="text-blue-500 underline cursor-pointer">Terms of service</a>
+              <a href="#" className="text-blue-500 underline cursor-pointer">
+                Terms of service
+              </a>
             </label>
           </div>
           <button
@@ -197,7 +208,12 @@ const SignupForm = () => {
           >
             {loading ? (
               <span className="flex items-center justify-center">
-                <svg className="animate-spin h-5 w-5 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg
+                  className="animate-spin h-5 w-5 mr-3 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                 </svg>
