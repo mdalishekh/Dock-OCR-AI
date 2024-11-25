@@ -52,9 +52,9 @@ const SignupForm = () => {
     };
     try {
       
-    console.log(process.env.REACT_APP_Java_Signup);
+    console.log(process.env.REACT_APP_Python_Signup);
 
-      const response = await fetch(process.env.REACT_APP_Java_Signup, {
+      const response = await fetch(process.env.REACT_Python_Signup, {
         
         method: 'POST',
         headers: {

@@ -23,7 +23,9 @@ function App() {
   const verifyEmailToken = async (token) => {
     try {
       const response = await fetch(
-        `http://localhost:9090/api/v1/gocab/auth/signup/verify/token?token=${token}`,
+        // REACT_APP_Python_Verify_Token
+        `${process.env.REACT_APP_Python_Verify_Token}/verify/token?token=${token}`,
+        // `http://localhost:9090/api/v1/gocab/auth/signup/verify/token?token=${token}`,
         { method: 'GET', redirect: 'follow' }
       );
 
