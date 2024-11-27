@@ -3,13 +3,53 @@ import car from "../image/car.jpeg";
 
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    agreeToTerms: false,
+  });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    
+    const requestData = {
+      email: formData.email,
+      password: formData.password,
+    };
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_Java_Login}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert('Signup successful!');
+        console.log('Server Response:', result);
+        setFormData({ email: '', password: '', agreeToTerms: false });
+      } else {
+        alert(result.message || 'Signup failed');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred during signup.');
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -21,21 +61,47 @@ const SignIn = () => {
         <form className="flex-1 p-10 flex flex-col" onSubmit={handleSubmit}>
           <h2 className="text-2xl font-bold mb-5">Sign in</h2>
 
-          <div className="flex items-center border-b border-gray-300 mb-5 pb-2 w-full">
-          <span role="img" aria-label="user icon" className="mr-2">👤</span>
-            <input type="email" placeholder="Email Address" className="flex-1 border-none outline-none text-lg" required />
-          </div>
 
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2 w-full">
-          <span role="img" aria-label="lock icon" className="mr-2">🔒</span>
-            <input type="password" placeholder="Password" className="flex-1 border-none outline-none text-lg" required />
+            <span role="img" aria-label="user icon" className="mr-2">👤</span>
+            <input 
+              type="email" 
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email Address" 
+              className="flex-1 border-none outline-none text-lg" 
+              required 
+            />
+          </div>
+
+
+          <div className="flex items-center border-b border-gray-300 mb-5 pb-2 w-full">
+            <span role="img" aria-label="lock icon" className="mr-2">🔒</span>
+            <input 
+              type="password" 
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Password" 
+              className="flex-1 border-none outline-none text-lg" 
+              required 
+            />
           </div>
 
           <div className="flex items-center mb-5">
-            <input type="checkbox" id="rememberMe" className="mr-2" />
-            <label htmlFor="rememberMe" className="text-sm text-gray-600">Remember me</label>
+            <input 
+              type="checkbox" 
+              id="agreeToTerms"
+              name="agreeToTerms"
+              checked={formData.agreeToTerms}
+              onChange={handleChange}
+              className="mr-2"
+            />
+            <label htmlFor="agreeToTerms" className="text-sm text-gray-600">Remember me</label>
           </div>
 
+          
           <button 
             type="submit" 
             className={`bg-blue-500 text-white py-3 rounded text-lg font-semibold w-full mb-5 ${loading ? 'opacity-50' : ''}`} 
@@ -54,6 +120,7 @@ const SignIn = () => {
             )}
           </button>
 
+     
           <div className="text-center text-blue-500 text-sm mb-5">
             <a href="/signup">Create an account</a>
           </div>
