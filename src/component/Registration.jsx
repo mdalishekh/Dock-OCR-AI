@@ -4,8 +4,9 @@ import { IoCall } from "react-icons/io5";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
-const SignupForm = () => {
+const Registration = () => {
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
@@ -19,6 +20,8 @@ const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate(); // Initialize the useNavigate hook
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -50,10 +53,8 @@ const SignupForm = () => {
       email: formData.email,
       password: formData.password,
     };
-    try {
-      
-    console.log(process.env.REACT_APP_Python_Signup);
 
+    try {
       const response = await fetch(`${process.env.REACT_APP_Java_Signup}`, {
         method: 'POST',
         headers: {
@@ -61,11 +62,12 @@ const SignupForm = () => {
         },
         body: JSON.stringify(requestData),
       });
-    
+
       const result = await response.json();
 
       if (response.ok) {
-        alert('Signup successful!');
+        // Navigate to EmailVerification page upon successful signup
+        navigate('/emailverification');
         console.log('Server Response:', result);
         setFormData({
           firstname: '',
@@ -234,4 +236,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default Registration;

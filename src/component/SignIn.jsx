@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import car from "../image/car.jpeg";
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -38,7 +40,7 @@ const SignIn = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert('Signup successful!');
+        navigate('/');
         console.log('Server Response:', result);
         setFormData({ email: '', password: '', agreeToTerms: false });
       } else {
