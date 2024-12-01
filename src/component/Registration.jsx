@@ -21,7 +21,7 @@ const Registration = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -55,7 +55,8 @@ const Registration = () => {
     };
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/v1/gocab/auth/signup`, {
+      const apiUrl = process.env.REACT_APP_API_BASE_URL;      
+      const response = await fetch(`${apiUrl}/api/v1/gocab/auth/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
