@@ -44,12 +44,11 @@ const App = () => {
 
   const verifyEmailToken = async (token) => {
     try {
-      // Create form data
+ 
       const formData = new FormData();
       formData.append('token', token);
 
-      // Make POST request
-      const response = await fetch(process.env.REACT_APP_VERIFY_TOKEN, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/v1/gocab/auth/signup/verify/token`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -77,7 +76,7 @@ const App = () => {
 
   return (
     <div>
-      {/* Toaster component renders the toast notifications */}
+    
       <Toaster position="top-center" reverseOrder={false} />
       
       <Routes>
