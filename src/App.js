@@ -47,8 +47,8 @@ const App = () => {
  
       const formData = new FormData();
       formData.append('token', token);
-
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/v1/gocab/auth/signup/verify/token`, {
+      const apiUrl = process.env.REACT_APP_API_BASE_URL;
+      const response = await fetch(`${apiUrl}/api/v1/gocab/auth/signup/verify/token`, {
         method: 'POST',
         body: formData,
         headers: {

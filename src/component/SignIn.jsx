@@ -29,7 +29,8 @@ const SignIn = () => {
     };
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/v1/gocab/auth/login`, {
+      const apiUrl = process.env.REACT_APP_API_BASE_URL;
+         const response = await fetch(`${apiUrl}/api/v1/gocab/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
