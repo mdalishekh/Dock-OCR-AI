@@ -101,9 +101,9 @@ const Registration = () => {
   };
 
   return (
-    <div className="flex items-center justify-center p-5 bg-gray-100 h-screen">
-      <div className="w-[400px] p-8 bg-white rounded-lg shadow-md mr-5">
-        <h2 className="text-2xl font-bold mb-5">Sign up</h2>
+    <div className="flex flex-col md:flex-row items-center justify-center p-5 bg-gray-100 min-h-screen">
+      <div className="w-full md:w-[400px] p-8 bg-white rounded-lg shadow-md md:mr-5 mb-8 md:mb-0">
+        <h2 className="text-2xl font-bold mb-5 text-center md:text-left">Sign up</h2>
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2">
             <span className="mr-2">👤</span>
@@ -114,7 +114,7 @@ const Registration = () => {
               value={formData.firstname}
               required
               onChange={handleChange}
-              className="border-none outline-none flex-1 text-base px-2"
+              className="border-none outline-none flex-1 text-base px-2 py-2"
             />
           </div>
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2">
@@ -125,16 +125,17 @@ const Registration = () => {
               placeholder="Last Name"
               value={formData.lastname}
               onChange={handleChange}
-              className="border-none outline-none flex-1 text-base px-2"
+              className="border-none outline-none flex-1 text-base px-2 py-2"
             />
           </div>
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2">
-            <IoCall className="mr-2" />
+            <IoCall className="mr-2 border-none" />
             <PhoneInput
               country="in"
               value={formData.phone}
+              className="border-none"
               onChange={handlePhoneChange}
-              inputClass="border-none outline-none flex-1 text-base px-2"
+              inputClass=" outline-none flex-1 text-base px-2 py-2"
             />
           </div>
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2">
@@ -146,7 +147,7 @@ const Registration = () => {
               value={formData.email}
               required
               onChange={handleChange}
-              className="border-none outline-none flex-1 text-base px-2"
+              className="border-none outline-none flex-1 text-base px-2 py-2"
             />
           </div>
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2 relative">
@@ -158,7 +159,7 @@ const Registration = () => {
               value={formData.password}
               required
               onChange={handleChange}
-              className="border-none outline-none flex-1 text-base px-2"
+              className="border-none outline-none flex-1 text-base px-2 py-2"
             />
             <button
               type="button"
@@ -177,7 +178,7 @@ const Registration = () => {
               value={formData.confirmPassword}
               required
               onChange={handleChange}
-              className="border-none outline-none flex-1 text-base px-2"
+              className="border-none outline-none flex-1 text-base px-2 py-2"
             />
             <button
               type="button"
@@ -230,7 +231,7 @@ const Registration = () => {
           <a href="login">I am already a member</a>
         </p>
       </div>
-      <div className="w-[500px] text-center">
+      <div className="w-full md:w-[500px] text-center">
         <img src={image1} alt="Desk setup" className="max-w-full" />
       </div>
     </div>
