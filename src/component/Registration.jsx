@@ -55,7 +55,7 @@ const Registration = () => {
     };
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_Java_Signup}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/v1/gocab/auth/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
