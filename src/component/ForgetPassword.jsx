@@ -46,16 +46,16 @@ const PasswordRecovery = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-br from-[#f0f8ff]">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#f0f8ff]">
       <Toaster position="top-right" reverseOrder={false} />
-      <div className="flex w-3/4 max-w-[900px] bg-white rounded-xl shadow-lg overflow-hidden">
-        <div className="flex-1 p-10 flex flex-col justify-center">
-          <div className="flex items-center mb-5">
-            <h2 className="text-3xl font-bold">GO</h2>
-            <h2 className="text-3xl font-bold text-[#53c22b] ml-2">CAB</h2>
+      <div className="flex flex-col md:flex-row w-full max-w-4xl bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="flex-1 p-6 md:p-10 flex flex-col justify-center">
+          <div className="flex items-center mb-4 md:mb-5">
+            <h2 className="text-2xl md:text-3xl font-bold">GO</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-[#53c22b] ml-2">CAB</h2>
           </div>
-          <h3 className="text-xl font-semibold mb-3">Password Recovery</h3>
-          <p className="text-sm mb-5">
+          <h3 className="text-lg md:text-xl font-semibold mb-3">Password Recovery</h3>
+          <p className="text-sm mb-4 md:mb-5">
             Enter your email, and we'll send you a link to reset your password.
           </p>
           <form onSubmit={handleSubmit}>
@@ -70,7 +70,7 @@ const PasswordRecovery = () => {
             />
             <button
               type="submit"
-              className={`bg-blue-500 w-full text-white py-2 px-4 rounded text-base ${
+              className={`bg-blue-500 w-full text-white py-2 px-4 rounded text-base transition-opacity duration-200 ${
                 loading ? 'opacity-50 cursor-not-allowed' : ''
               }`}
               disabled={loading}
@@ -109,9 +109,9 @@ const PasswordRecovery = () => {
             Home
           </a>
         </div>
-        <div className="flex-1 p-10 bg-[#f7faff] flex flex-col items-center justify-center text-center">
-          <img src={image1} alt="Password Recovery" className="w-3/4 mb-5" />
-          <h4 className="text-lg font-semibold mb-3">Keep Your Data Secure!</h4>
+        <div className="flex-1 p-6 md:p-10 bg-[#f7faff] flex flex-col items-center justify-center text-center">
+          <img src={image1} alt="Password Recovery" className="w-3/4 md:w-full mb-5" />
+          <h4 className="text-base md:text-lg font-semibold mb-3">Keep Your Data Secure!</h4>
           <p className="text-sm text-gray-600">
             Ensure your personal information is always up to date.
           </p>

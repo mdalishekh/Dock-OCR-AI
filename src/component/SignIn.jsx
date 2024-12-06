@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import car from "../image/car.jpeg";
+import car from "../image/—Pngtree—illustration of fun mudik eid_9068973.png";
 import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
@@ -22,7 +22,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     const requestData = {
       email: formData.email,
       password: formData.password,
@@ -30,7 +30,7 @@ const SignIn = () => {
 
     try {
       const apiUrl = process.env.REACT_APP_API_BASE_URL;
-         const response = await fetch(`${apiUrl}/api/v1/gocab/auth/login`, {
+      const response = await fetch(`${apiUrl}/api/v1/gocab/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,14 +56,13 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="flex bg-white rounded-lg shadow-md overflow-hidden max-w-3xl w-full">
-        <div className="flex-1 flex items-center justify-center p-5">
-          <img src={car} alt="illustration" className="w-full h-auto" />
+    <div className="flex flex-col md:flex-row justify-center items-center min-h-screen  p-4">
+      <div className="flex flex-col md:flex-row bg-white rounded-lg shadow-md overflow-hidden max-w-4xl w-full">
+        <div className="hidden md:flex flex-1 items-center justify-center p-5 ">
+          <img src={car} alt="illustration" className="w-full h-auto object-contain" />
         </div>
-        <form className="flex-1 p-10 flex flex-col" onSubmit={handleSubmit}>
-          <h2 className="text-2xl font-bold mb-5">Sign in</h2>
-
+        <form className="flex-1 p-6 md:p-10 flex flex-col" onSubmit={handleSubmit}>
+          <h2 className="text-2xl font-bold mb-6 text-center md:text-left">Sign in</h2>
 
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2 w-full">
             <span role="img" aria-label="user icon" className="mr-2">👤</span>
@@ -77,7 +76,6 @@ const SignIn = () => {
               required 
             />
           </div>
-
 
           <div className="flex items-center border-b border-gray-300 mb-5 pb-2 w-full">
             <span role="img" aria-label="lock icon" className="mr-2">🔒</span>
@@ -104,7 +102,6 @@ const SignIn = () => {
             <label htmlFor="agreeToTerms" className="text-sm text-gray-600">Remember me</label>
           </div>
 
-          
           <button 
             type="submit" 
             className={`bg-blue-500 text-white py-3 rounded text-lg font-semibold w-full mb-5 ${loading ? 'opacity-50' : ''}`} 
@@ -123,8 +120,7 @@ const SignIn = () => {
             )}
           </button>
 
-     
-          <div className="text-center text-blue-500 text-sm mb-5">
+          <div className="text-center text-blue-500 text-sm">
             <a href="/signup">Create an account</a>
           </div>
         </form>

@@ -4,7 +4,7 @@ import { IoCall } from "react-icons/io5";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom'; 
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -67,7 +67,6 @@ const Registration = () => {
       const result = await response.json();
 
       if (response.ok) {
-        // Navigate to EmailVerification page upon successful signup
         navigate('/emailverification');
         console.log('Server Response:', result);
         setFormData({
