@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { toast, Toaster } from 'react-hot-toast'; 
-
+import { toast, Toaster } from 'react-hot-toast';
 import 'tailwindcss/tailwind.css';
 
 import PasswordRecovery from './component/ForgetPassword';
@@ -9,6 +8,7 @@ import SignIn from './component/SignIn';
 import Registration from './component/Registration';
 import EmailVerification from './component/ConfirmationMail';
 import NotFound from './component/Page-Not-Found';
+import ConfirmPassword from './component/ConfirmPassword';
 
 
 const showToast = (message, type) => {
@@ -45,7 +45,6 @@ const App = () => {
 
   const verifyEmailToken = async (token) => {
     try {
- 
       const formData = new FormData();
       formData.append('token', token);
       const apiUrl = process.env.REACT_APP_API_BASE_URL;
@@ -57,8 +56,6 @@ const App = () => {
         },
         redirect: 'follow',
       });
-
-      
 
       const result = await response.json();
 
@@ -77,19 +74,16 @@ const App = () => {
 
   return (
     <div>
-    
       <Toaster position="top-center" reverseOrder={false} />
-      
       <Routes>
         <Route path="/signup" element={<Registration />} />
         <Route path="/login" element={<SignIn />} />
-
+        <Route path="/verify/forget-password/token/:token" element={<ConfirmPassword />} />
         <Route path="/emailverification" element={<EmailVerification />} />
-        <Route path="/verify/signup/token/:token" />
-        <Route path="*" element = {<NotFound />} />
+        <Route path="/verify/signup/token/:token" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<strong>Home Page</strong>} />
         <Route path="/forget-password" element={<PasswordRecovery />} />
-
       </Routes>
     </div>
   );
