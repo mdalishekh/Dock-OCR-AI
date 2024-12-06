@@ -8,6 +8,7 @@ import PasswordRecovery from './component/ForgetPassword';
 import SignIn from './component/SignIn';
 import Registration from './component/Registration';
 import EmailVerification from './component/ConfirmationMail';
+import NotFound from './component/Page-Not-Found';
 
 
 const showToast = (message, type) => {
@@ -61,12 +62,12 @@ const App = () => {
 
       const result = await response.json();
 
-      // Handle success or failure
       if (result.status) {
         showToast('Email verified successfully!', 'success');
         setTimeout(() => navigate('/login'), 2000);
       } else {
         showToast(result.message || 'Verification failed!', 'error');
+        setTimeout(() => navigate('/not-found'), 2000);
       }
     } catch (error) {
       console.error('Verification Error:', error);
@@ -82,10 +83,13 @@ const App = () => {
       <Routes>
         <Route path="/signup" element={<Registration />} />
         <Route path="/login" element={<SignIn />} />
+
         <Route path="/emailverification" element={<EmailVerification />} />
         <Route path="/verify/signup/token/:token" />
+        <Route path="*" element = {<NotFound />} />
         <Route path="/" element={<strong>Home Page</strong>} />
         <Route path="/forget-password" element={<PasswordRecovery />} />
+
       </Routes>
     </div>
   );
