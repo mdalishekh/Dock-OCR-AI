@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import car from "../image/—Pngtree—illustration of fun mudik eid_9068973.png";
 import { useNavigate } from 'react-router-dom';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     agreeToTerms: false,
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -17,6 +20,10 @@ const SignIn = () => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value,
     }));
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = async (e) => {
@@ -56,43 +63,51 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center min-h-screen  p-4">
+    <div className="flex flex-col md:flex-row justify-center items-center min-h-screen p-4">
       <div className="flex flex-col md:flex-row bg-white rounded-lg shadow-md overflow-hidden max-w-4xl w-full">
-        <div className="hidden md:flex flex-1 items-center justify-center p-5 ">
+        <div className="hidden md:flex flex-1 items-center justify-center p-5">
           <img src={car} alt="illustration" className="w-full h-auto object-contain" />
         </div>
+
         <form className="flex-1 p-6 md:p-10 flex flex-col" onSubmit={handleSubmit}>
           <h2 className="text-2xl font-bold mb-6 text-center md:text-left">Sign in</h2>
 
-          <div className="flex items-center border-b border-gray-300 mb-5 pb-2 w-full">
+          <div className="flex items-center border-b border-gray-300 mb-5 pb-2 w-full relative">
             <span role="img" aria-label="user icon" className="mr-2">👤</span>
-            <input 
-              type="email" 
+            <input
+              type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Email Address" 
-              className="flex-1 border-none outline-none text-lg" 
-              required 
+              placeholder="Email Address"
+              className="flex-1 border-none outline-none text-lg"
+              required
             />
           </div>
 
-          <div className="flex items-center border-b border-gray-300 mb-5 pb-2 w-full">
+          <div className="flex items-center border-b border-gray-300 mb-5 pb-2 w-full relative">
             <span role="img" aria-label="lock icon" className="mr-2">🔒</span>
-            <input 
-              type="password" 
+            <input
+              type={showPassword ? 'text' : 'password'}
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Password" 
-              className="flex-1 border-none outline-none text-lg" 
-              required 
+              placeholder="Password"
+              className="flex-1 border-none outline-none text-lg"
+              required
             />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-0 mr-2 top-1/2 transform -translate-y-1/2"
+            >
+              {showPassword ? <FiEyeOff /> : <FiEye />}
+            </button>
           </div>
 
           <div className="flex items-center mb-5">
-            <input 
-              type="checkbox" 
+            <input
+              type="checkbox"
               id="agreeToTerms"
               name="agreeToTerms"
               checked={formData.agreeToTerms}
@@ -102,9 +117,9 @@ const SignIn = () => {
             <label htmlFor="agreeToTerms" className="text-sm text-gray-600">Remember me</label>
           </div>
 
-          <button 
-            type="submit" 
-            className={`bg-blue-500 text-white py-3 rounded text-lg font-semibold w-full mb-5 ${loading ? 'opacity-50' : ''}`} 
+          <button
+            type="submit"
+            className={`bg-blue-500 text-white py-3 rounded text-lg font-semibold w-full mb-5 ${loading ? 'opacity-50' : ''}`}
             disabled={loading}
           >
             {loading ? (
@@ -122,6 +137,10 @@ const SignIn = () => {
 
           <div className="text-center text-blue-500 text-sm">
             <a href="/signup">Create an account</a>
+          </div>
+
+          <div className="text-center text-gray-500 text-sm mt-5">
+            Forgot your password? <a className="text-blue-500" href="/forget-password">Click here</a>
           </div>
         </form>
       </div>

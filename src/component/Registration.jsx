@@ -226,9 +226,9 @@ const Registration = () => {
             )}
           </button>
         </form>
-        <p className="text-center mt-2.5 text-sm">
+        <h2 className="text-center text-blue-900 mt-2.5 text-sm">
           <a href="login">I am already a member</a>
-        </p>
+        </h2>
       </div>
       <div className="w-full md:w-[500px] text-center">
         <img src={image1} alt="Desk setup" className="max-w-full" />
