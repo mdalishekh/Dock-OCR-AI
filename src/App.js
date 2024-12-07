@@ -9,6 +9,7 @@ import Registration from './component/Registration';
 import EmailVerification from './component/ConfirmationMail';
 import NotFound from './component/Page-Not-Found';
 import ConfirmPassword from './component/ConfirmPassword';
+import Home from './component/Home';
 
 
 const showToast = (message, type) => {
@@ -82,7 +83,7 @@ const App = () => {
         <Route path="/emailverification" element={<EmailVerification />} />
         <Route path="/verify/signup/token/:token" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<strong>Home Page</strong>} />
+        <Route path="/" element={<Home/>} />
         <Route path="/forget-password" element={<PasswordRecovery />} />
       </Routes>
     </div>

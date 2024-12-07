@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import car from "../image/—Pngtree—illustration of fun mudik eid_9068973.png";
 import { useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import car from "../image/—Pngtree—illustration of fun mudik eid_9068973.png";
 
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
@@ -48,15 +48,17 @@ const SignIn = () => {
       const result = await response.json();
 
       if (response.ok) {
+        localStorage.setItem('userToken', result.token);
+        localStorage.setItem('userEmail', result.email);
         navigate('/');
-        console.log('Server Response:', result);
+        console.log('Login successful:', result);
         setFormData({ email: '', password: '', agreeToTerms: false });
       } else {
-        alert(result.message || 'Signup failed');
+        alert(result.message || 'Login failed');
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred during signup.');
+      alert('An error occurred during login.');
     } finally {
       setLoading(false);
     }
