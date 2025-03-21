@@ -14,6 +14,7 @@ from chat.api.file_reader import TextExtractor
 from chat.api.vector_store import VectorStore
 from chat.api.vector_search import GetAnswer
 from chat.configuration.config import logging
+from chat.api.ocr import ocr_pdf, ocr_image
 
   
 @api_view(["GET"])
@@ -88,3 +89,76 @@ def delete_all_files(request):
         return JsonResponse({"message": "All files deleted successfully."}, status=200)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+    
+    
+# API for OCR performing with Scanned PDFs
+
+@api_view(['POST'])
+@parser_classes([MultiPartParser, FormParser])  
+def pdf_ocr_api(request: Request):
+    logging.info("PDF OCR API started")
+    try:
+        file: UploadedFile = request.FILES.get('file')  
+        # If no file sent then returning an error message
+        if not file:
+            return Response({"error": "No file provided"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # If there is no path then it will be created
+        UPLOAD_DIR = os.path.join(settings.BASE_DIR, "uploads")  
+        if not os.path.exists(UPLOAD_DIR):
+            os.makedirs(UPLOAD_DIR)
+        # Creating folder path to store files
+        file_path = os.path.join(UPLOAD_DIR, file.name)  
+        # Saving file in slected destination
+        with open(file_path, 'wb+') as destination:
+            for chunk in file.chunks():
+                destination.write(chunk)
+        # text_extractor = TextExtractor() 
+        pdf_text: str = ocr_pdf(file_path)   
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            logging.info(f"{file.name} has been removed after performing OCR")
+        else:
+            logging.info("File not found or has been deleted")    
+        return JsonResponse({
+            "status": True,
+            "content": pdf_text
+        },  status=200)    
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+    
+# API for OCR performing with Images
+
+@api_view(['POST'])
+@parser_classes([MultiPartParser, FormParser])  
+def image_ocr_api(request: Request):
+    logging.info("PDF OCR API started")
+    try:
+        file: UploadedFile = request.FILES.get('file')  
+        # If no file sent then returning an error message
+        if not file:
+            return Response({"error": "No file provided"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # If there is no path then it will be created
+        UPLOAD_DIR = os.path.join(settings.BASE_DIR, "uploads")  
+        if not os.path.exists(UPLOAD_DIR):
+            os.makedirs(UPLOAD_DIR)
+        # Creating folder path to store files
+        file_path = os.path.join(UPLOAD_DIR, file.name)  
+        # Saving file in slected destination
+        with open(file_path, 'wb+') as destination:
+            for chunk in file.chunks():
+                destination.write(chunk)
+        # text_extractor = TextExtractor() 
+        image_text: str = ocr_image(file_path)   
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            logging.info(f"{file.name} has been removed after performing OCR")
+        else:
+            logging.info("File not found or has been deleted")    
+        return JsonResponse({
+            "status": True,
+            "content": image_text
+        },  status=200)    
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)    

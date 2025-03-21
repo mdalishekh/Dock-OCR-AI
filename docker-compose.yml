@@ -4,7 +4,7 @@ services:
   web:
     image: django-ocr-app 
     build: .
-    container_name: django_ocr_cont
+    container_name: docker-ocr-container
     volumes:
       - .:/app
     ports:
