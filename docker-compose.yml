@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    image: django-ocr-app 
+    image: scanxtract 
     build: .
     container_name: docker-ocr-container
     volumes:
